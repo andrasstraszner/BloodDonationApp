@@ -9,11 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BloodDonationUI", "BloodDon
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BloodDonationUI.Tests", "BloodDonationUI.Tests\BloodDonationUI.Tests.csproj", "{759A873D-2CA2-4610-BBB8-55C8D385DA24}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{E8D1BA10-7272-4F6B-9B11-8916FDFF4A14}"
-	ProjectSection(SolutionItems) = preProject
-		Presentation\Véradó app - demo.pptx = Presentation\Véradó app - demo.pptx
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
