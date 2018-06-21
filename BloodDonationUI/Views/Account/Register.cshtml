@@ -1,0 +1,89 @@
+﻿@model BloodDonationUI.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Regisztráció";
+}
+
+<h3>@ViewBag.Title</h3>
+
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <hr />
+    <h4>Fiók adatok</h4>
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.RequiredLabelFor(m => m.AccountInfo.Email, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.AccountInfo.Email, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.RequiredLabelFor(m => m.AccountInfo.Password, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.PasswordFor(m => m.AccountInfo.Password, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.RequiredLabelFor(m => m.AccountInfo.ConfirmPassword, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.PasswordFor(m => m.AccountInfo.ConfirmPassword, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <hr>
+    <h4>Személyes adatok</h4>
+
+    <div class="form-group">
+        @Html.RequiredLabelFor(m => m.PersonalInfo.LastName, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.PersonalInfo.LastName, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.RequiredLabelFor(m => m.PersonalInfo.FirstName, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.PersonalInfo.FirstName, new { @class = "form-control" })
+
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.RequiredLabelFor(m => m.PersonalInfo.DonorSexId, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(m => m.PersonalInfo.DonorSexId, new SelectList(ViewBag.DonorSexList, "Id", "Name"), new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.RequiredLabelFor(m => m.PersonalInfo.BirthDate, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.EditorFor(m => m.PersonalInfo.BirthDate, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.RequiredLabelFor(m => m.PersonalInfo.SocialInsuranceNumber, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.PersonalInfo.SocialInsuranceNumber, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.RequiredLabelFor(m => m.PersonalInfo.ABOBloodGroupId, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(m => m.PersonalInfo.ABOBloodGroupId, new SelectList(ViewBag.DonorABOList, "Id", "Name"), "", new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.RequiredLabelFor(m => m.PersonalInfo.RhBloodGroupId, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(m => m.PersonalInfo.RhBloodGroupId, new SelectList(ViewBag.DonorRhList, "Id", "Name"), "", new { @class = "form-control" })
+        </div>
+    </div>
+    <hr>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-default" value="Regisztráció" />
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

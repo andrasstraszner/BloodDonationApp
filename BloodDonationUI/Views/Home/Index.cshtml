@@ -1,0 +1,23 @@
+﻿@model BloodDonationUI.Models.IndexViewModel
+
+@{
+    ViewBag.Title = "Kezdőlap";
+}
+<div class="jumbotron">
+    @if (Request.IsAuthenticated)
+    {
+        <h3>Következő véradásod időpontja</h3>
+        <hr />
+        <p>@Html.Raw(Model.DisplayNextDate)</p>
+
+    }
+    else
+    {
+        <h3>Üdvözlünk véradó értesítő alkalmazásunkban.</h3>
+        <hr />
+        <p>A folytatáshoz <a href="/Account/Login">jelentkezz be</a>.</p>
+        <p>Ha még nincs fiókod, <a href="/Account/Register">regisztrálj</a>. </p>
+    }
+</div>
+
+

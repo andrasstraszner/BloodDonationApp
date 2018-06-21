@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="e93dbbf4-7eed-40db-8188-98b2a7e49e3a" ChangeDateTime="06/05/2018 12:23:36">
+    <Property Name="ElementName" Value="[dbo].[Donor].[Name]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Donor]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="FirstName" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="5b94ae1b-afa3-41d5-86ac-73b3a4163c27" ChangeDateTime="06/06/2018 08:35:10">
+    <Property Name="ElementName" Value="[dbo].[RhBloodGroup].[RhBloodGroup]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[RhBloodGroup]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Name" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="b585aaf9-9b37-4ae9-9c9e-814dfec8ec26" ChangeDateTime="06/06/2018 08:35:56">
+    <Property Name="ElementName" Value="[dbo].[ABOBloodGroup].[ABOBloodGroup]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ABOBloodGroup]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Name" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="d7d7a85e-7310-46c6-a358-7f7640cf5ab3" ChangeDateTime="06/06/2018 08:36:11">
+    <Property Name="ElementName" Value="[dbo].[DonationCenterType].[Type]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[DonationCenterType]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Name" />
+  </Operation>
+</Operations>

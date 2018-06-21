@@ -1,0 +1,109 @@
+﻿@model BloodDonationUI.Models.PersonalEditViewModel
+@{
+    ViewBag.Title = "Személyes adatok szerkesztése";
+}
+
+<h3>@ViewBag.Title</h3>
+<hr />
+
+@using (Html.BeginForm("Edit", "Personal", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.RequiredLabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.RequiredLabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.RequiredLabelFor(model => model.BirthDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.BirthDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.BirthDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.RequiredLabelFor(model => model.DonorSexId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.DonorSexId, (SelectList)ViewBag.DonorSexList, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.DonorSexId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.RequiredLabelFor(model => model.SocialInsuranceNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SocialInsuranceNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SocialInsuranceNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.RequiredLabelFor(model => model.ABOBloodGroupId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.ABOBloodGroupId, (SelectList)ViewBag.ABOBloodGroupList, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ABOBloodGroupId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.RequiredLabelFor(model => model.RhBloodGroupId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.RhBloodGroupId, (SelectList)ViewBag.RhBloodGroupList, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.RhBloodGroupId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                @Html.ActionLink("Vissza", "Index", null, new { @class = "btn btn-default" })
+                <input type="submit" value="Mentés" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+}
+@*<div>
+       <a href="#" id="deletePersonal" >Összes személyes adat törlése</a>
+    </div>*@
+
+@*modal for deleting personal info*@
+@*<div id="deletePersonalModal" class="modal fade in">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title">Személyes adatok törlése</h3>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <h4>
+                            A fiókhoz tartozó minden személyes adat törlésre kerül.<br>Folytatni kívánja?
+                        </h4>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" data-dismiss="modal">Nem</button>
+                    @Html.ActionLink("Igen", "Delete", "Personal", null, new { @class = "btn btn-danger" , @id="deletePersonalConfirm"} )
+                </div>
+            </div>
+        </div>
+    </div>*@
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/scripts/Appjs/Personal_Delete.js")
+}

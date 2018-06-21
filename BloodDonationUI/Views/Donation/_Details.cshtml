@@ -1,0 +1,64 @@
+﻿@model BloodDonationUI.Models.DonationDetailsViewModel
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3 class="modal-title">Véradás részletei</h3>
+</div>
+
+<div class="modal-body">
+    <div>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.DonationDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DonationDate)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.DonationCenter)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DonationCenter)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.IsSuccessful)
+            </dt>
+
+            <dd>
+                @HttpUtility.HtmlDecode(Model.IsSuccessful)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.NextDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.NextDate)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Comments)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Comments)
+            </dd>
+
+        </dl>
+    </div>
+    @*<p>
+        @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>*@
+</div>
+
+<div class="modal-footer">
+    <div class="modal-footer">
+        <button class="btn btn-default" data-dismiss="modal">Vissza</button>
+    </div>
+</div>
+

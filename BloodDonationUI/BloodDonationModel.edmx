@@ -1,0 +1,754 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="BloodDonationModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="__RefactorLog">
+          <Key>
+            <PropertyRef Name="OperationKey" />
+          </Key>
+          <Property Name="OperationKey" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ABOBloodGroup">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PostalCode" Type="int" Nullable="false" />
+          <Property Name="City" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Street" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="HouseNumber" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Comments" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="DonationCenter">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DonationCenterTypeId" Type="int" Nullable="false" />
+          <Property Name="RegionId" Type="int" />
+          <Property Name="AddressId" Type="int" />
+          <Property Name="OpeningHoursId" Type="int" />
+        </EntityType>
+        <EntityType Name="DonationCenterType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DonationLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DonorId" Type="int" Nullable="false" />
+          <Property Name="DonationCenterId" Type="int" Nullable="false" />
+          <Property Name="DonationDate" Type="date" Nullable="false" />
+          <Property Name="IsSuccessful" Type="bit" Nullable="false" />
+          <Property Name="NextDate" Type="date" Nullable="false" />
+          <Property Name="Comments" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Donor">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="BirthDate" Type="date" Nullable="false" />
+          <Property Name="DonorSexId" Type="int" Nullable="false" />
+          <Property Name="SocialInsuranceNumber" Type="char" MaxLength="11" />
+          <Property Name="ABOBloodGroupId" Type="int" />
+          <Property Name="RhBloodGroupId" Type="int" />
+        </EntityType>
+        <EntityType Name="DonorSex">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="OpeningHours">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Monday" Type="varchar" MaxLength="25" />
+          <Property Name="Tuesday" Type="varchar" MaxLength="25" />
+          <Property Name="Wednesday" Type="varchar" MaxLength="25" />
+          <Property Name="Thursday" Type="varchar" MaxLength="25" />
+          <Property Name="Friday" Type="varchar" MaxLength="25" />
+          <Property Name="Saturday" Type="varchar" MaxLength="25" />
+          <Property Name="Sunday" Type="varchar" MaxLength="25" />
+        </EntityType>
+        <EntityType Name="PhoneNumber">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DonationCenterId" Type="int" Nullable="false" />
+          <Property Name="PhoneNumber" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Comments" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Region">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RhBloodGroup">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_DonationCenter_Address">
+          <End Role="Address" Type="Self.Address" Multiplicity="0..1" />
+          <End Role="DonationCenter" Type="Self.DonationCenter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DonationCenter">
+              <PropertyRef Name="AddressId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DonationCenter_DonationCenterType">
+          <End Role="DonationCenterType" Type="Self.DonationCenterType" Multiplicity="1" />
+          <End Role="DonationCenter" Type="Self.DonationCenter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DonationCenterType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DonationCenter">
+              <PropertyRef Name="DonationCenterTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DonationCenter_Opening Hours">
+          <End Role="OpeningHours" Type="Self.OpeningHours" Multiplicity="0..1" />
+          <End Role="DonationCenter" Type="Self.DonationCenter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OpeningHours">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DonationCenter">
+              <PropertyRef Name="OpeningHoursId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DonationCenter_Region">
+          <End Role="Region" Type="Self.Region" Multiplicity="0..1" />
+          <End Role="DonationCenter" Type="Self.DonationCenter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Region">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DonationCenter">
+              <PropertyRef Name="RegionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DonationLog_DonationCenter">
+          <End Role="DonationCenter" Type="Self.DonationCenter" Multiplicity="1" />
+          <End Role="DonationLog" Type="Self.DonationLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DonationCenter">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DonationLog">
+              <PropertyRef Name="DonationCenterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DonationLog_Donor">
+          <End Role="Donor" Type="Self.Donor" Multiplicity="1" />
+          <End Role="DonationLog" Type="Self.DonationLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Donor">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DonationLog">
+              <PropertyRef Name="DonorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Donor_ABOBloodGroup">
+          <End Role="ABOBloodGroup" Type="Self.ABOBloodGroup" Multiplicity="0..1" />
+          <End Role="Donor" Type="Self.Donor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ABOBloodGroup">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Donor">
+              <PropertyRef Name="ABOBloodGroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Donor_DonorSex">
+          <End Role="DonorSex" Type="Self.DonorSex" Multiplicity="1" />
+          <End Role="Donor" Type="Self.Donor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DonorSex">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Donor">
+              <PropertyRef Name="DonorSexId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Donor_RhBloodGroup">
+          <End Role="RhBloodGroup" Type="Self.RhBloodGroup" Multiplicity="0..1" />
+          <End Role="Donor" Type="Self.Donor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RhBloodGroup">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Donor">
+              <PropertyRef Name="RhBloodGroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PhoneNumber_DonationCenter">
+          <End Role="DonationCenter" Type="Self.DonationCenter" Multiplicity="1" />
+          <End Role="PhoneNumber" Type="Self.PhoneNumber" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DonationCenter">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PhoneNumber">
+              <PropertyRef Name="DonationCenterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BloodDonationModelStoreContainer">
+          <EntitySet Name="__RefactorLog" EntityType="Self.__RefactorLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ABOBloodGroup" EntityType="Self.ABOBloodGroup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Address" EntityType="Self.Address" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DonationCenter" EntityType="Self.DonationCenter" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DonationCenterType" EntityType="Self.DonationCenterType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DonationLog" EntityType="Self.DonationLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Donor" EntityType="Self.Donor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DonorSex" EntityType="Self.DonorSex" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OpeningHours" EntityType="Self.OpeningHours" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PhoneNumber" EntityType="Self.PhoneNumber" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Region" EntityType="Self.Region" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RhBloodGroup" EntityType="Self.RhBloodGroup" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_DonationCenter_Address" Association="Self.FK_DonationCenter_Address">
+            <End Role="Address" EntitySet="Address" />
+            <End Role="DonationCenter" EntitySet="DonationCenter" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DonationCenter_DonationCenterType" Association="Self.FK_DonationCenter_DonationCenterType">
+            <End Role="DonationCenterType" EntitySet="DonationCenterType" />
+            <End Role="DonationCenter" EntitySet="DonationCenter" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DonationCenter_Opening Hours" Association="Self.FK_DonationCenter_Opening Hours">
+            <End Role="OpeningHours" EntitySet="OpeningHours" />
+            <End Role="DonationCenter" EntitySet="DonationCenter" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DonationCenter_Region" Association="Self.FK_DonationCenter_Region">
+            <End Role="Region" EntitySet="Region" />
+            <End Role="DonationCenter" EntitySet="DonationCenter" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DonationLog_DonationCenter" Association="Self.FK_DonationLog_DonationCenter">
+            <End Role="DonationCenter" EntitySet="DonationCenter" />
+            <End Role="DonationLog" EntitySet="DonationLog" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DonationLog_Donor" Association="Self.FK_DonationLog_Donor">
+            <End Role="Donor" EntitySet="Donor" />
+            <End Role="DonationLog" EntitySet="DonationLog" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Donor_ABOBloodGroup" Association="Self.FK_Donor_ABOBloodGroup">
+            <End Role="ABOBloodGroup" EntitySet="ABOBloodGroup" />
+            <End Role="Donor" EntitySet="Donor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Donor_DonorSex" Association="Self.FK_Donor_DonorSex">
+            <End Role="DonorSex" EntitySet="DonorSex" />
+            <End Role="Donor" EntitySet="Donor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Donor_RhBloodGroup" Association="Self.FK_Donor_RhBloodGroup">
+            <End Role="RhBloodGroup" EntitySet="RhBloodGroup" />
+            <End Role="Donor" EntitySet="Donor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PhoneNumber_DonationCenter" Association="Self.FK_PhoneNumber_DonationCenter">
+            <End Role="DonationCenter" EntitySet="DonationCenter" />
+            <End Role="PhoneNumber" EntitySet="PhoneNumber" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BloodDonationModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PostalCode" Type="Int32" Nullable="false" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Street" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="HouseNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Comments" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DonationCenter" Relationship="Self.FK_DonationCenter_Address" FromRole="Address" ToRole="DonationCenter" />
+        </EntityType>
+        <EntityType Name="DonationCenter">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DonationCenterTypeId" Type="Int32" Nullable="false" />
+          <Property Name="RegionId" Type="Int32" />
+          <Property Name="AddressId" Type="Int32" />
+          <Property Name="OpeningHoursId" Type="Int32" />
+          <NavigationProperty Name="Address" Relationship="Self.FK_DonationCenter_Address" FromRole="DonationCenter" ToRole="Address" />
+          <NavigationProperty Name="DonationCenterType" Relationship="Self.FK_DonationCenter_DonationCenterType" FromRole="DonationCenter" ToRole="DonationCenterType" />
+          <NavigationProperty Name="OpeningHours" Relationship="Self.FK_DonationCenter_Opening_Hours" FromRole="DonationCenter" ToRole="OpeningHours" />
+          <NavigationProperty Name="Region" Relationship="Self.FK_DonationCenter_Region" FromRole="DonationCenter" ToRole="Region" />
+          <NavigationProperty Name="DonationLog" Relationship="Self.FK_DonationLog_DonationCenter" FromRole="DonationCenter" ToRole="DonationLog" />
+          <NavigationProperty Name="PhoneNumber" Relationship="Self.FK_PhoneNumber_DonationCenter" FromRole="DonationCenter" ToRole="PhoneNumber" />
+        </EntityType>
+        <EntityType Name="DonationCenterType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="DonationCenter" Relationship="Self.FK_DonationCenter_DonationCenterType" FromRole="DonationCenterType" ToRole="DonationCenter" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="DonationLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DonorId" Type="Int32" Nullable="false" />
+          <Property Name="DonationCenterId" Type="Int32" Nullable="false" />
+          <Property Name="DonationDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="IsSuccessful" Type="Boolean" Nullable="false" />
+          <Property Name="NextDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Comments" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DonationCenter" Relationship="Self.FK_DonationLog_DonationCenter" FromRole="DonationLog" ToRole="DonationCenter" />
+          <NavigationProperty Name="Donor" Relationship="BloodDonationModel.FK_DonationLog_Donor" FromRole="DonationLog" ToRole="Donor" />
+        </EntityType>
+        <EntityType Name="OpeningHours">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Monday" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Tuesday" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Wednesday" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Thursday" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Friday" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Saturday" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Sunday" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DonationCenter" Relationship="Self.FK_DonationCenter_Opening_Hours" FromRole="OpeningHours" ToRole="DonationCenter" />
+        </EntityType>
+        <EntityType Name="PhoneNumber">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DonationCenterId" Type="Int32" Nullable="false" />
+          <Property Name="PhoneNumber1" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Comments" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DonationCenter" Relationship="Self.FK_PhoneNumber_DonationCenter" FromRole="PhoneNumber" ToRole="DonationCenter" />
+        </EntityType>
+        <EntityType Name="Region">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="DonationCenter" Relationship="Self.FK_DonationCenter_Region" FromRole="Region" ToRole="DonationCenter" />
+        </EntityType>
+        <EntityType Name="RhBloodGroup">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Donor" Relationship="BloodDonationModel.FK_Donor_RhBloodGroup" FromRole="RhBloodGroup" ToRole="Donor" />
+        </EntityType>
+        <Association Name="FK_DonationCenter_Address">
+          <End Role="Address" Type="Self.Address" Multiplicity="0..1" />
+          <End Role="DonationCenter" Type="Self.DonationCenter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DonationCenter">
+              <PropertyRef Name="AddressId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DonationCenter_DonationCenterType">
+          <End Role="DonationCenterType" Type="Self.DonationCenterType" Multiplicity="1" />
+          <End Role="DonationCenter" Type="Self.DonationCenter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DonationCenterType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DonationCenter">
+              <PropertyRef Name="DonationCenterTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DonationCenter_Opening_Hours">
+          <End Role="OpeningHours" Type="Self.OpeningHours" Multiplicity="0..1" />
+          <End Role="DonationCenter" Type="Self.DonationCenter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OpeningHours">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DonationCenter">
+              <PropertyRef Name="OpeningHoursId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DonationCenter_Region">
+          <End Role="Region" Type="Self.Region" Multiplicity="0..1" />
+          <End Role="DonationCenter" Type="Self.DonationCenter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Region">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DonationCenter">
+              <PropertyRef Name="RegionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DonationLog_DonationCenter">
+          <End Role="DonationCenter" Type="Self.DonationCenter" Multiplicity="1" />
+          <End Role="DonationLog" Type="Self.DonationLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DonationCenter">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DonationLog">
+              <PropertyRef Name="DonationCenterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PhoneNumber_DonationCenter">
+          <End Role="DonationCenter" Type="Self.DonationCenter" Multiplicity="1" />
+          <End Role="PhoneNumber" Type="Self.PhoneNumber" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DonationCenter">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PhoneNumber">
+              <PropertyRef Name="DonationCenterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BloodDonationEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Address" EntityType="Self.Address" />
+          <EntitySet Name="DonationCenter" EntityType="Self.DonationCenter" />
+          <EntitySet Name="DonationCenterType" EntityType="Self.DonationCenterType" />
+          <EntitySet Name="DonationLog" EntityType="Self.DonationLog" />
+          <EntitySet Name="OpeningHours" EntityType="Self.OpeningHours" />
+          <EntitySet Name="PhoneNumber" EntityType="Self.PhoneNumber" />
+          <EntitySet Name="Region" EntityType="Self.Region" />
+          <EntitySet Name="RhBloodGroup" EntityType="Self.RhBloodGroup" />
+          <AssociationSet Name="FK_DonationCenter_Address" Association="Self.FK_DonationCenter_Address">
+            <End Role="Address" EntitySet="Address" />
+            <End Role="DonationCenter" EntitySet="DonationCenter" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DonationCenter_DonationCenterType" Association="Self.FK_DonationCenter_DonationCenterType">
+            <End Role="DonationCenterType" EntitySet="DonationCenterType" />
+            <End Role="DonationCenter" EntitySet="DonationCenter" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DonationCenter_Opening_Hours" Association="Self.FK_DonationCenter_Opening_Hours">
+            <End Role="OpeningHours" EntitySet="OpeningHours" />
+            <End Role="DonationCenter" EntitySet="DonationCenter" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DonationCenter_Region" Association="Self.FK_DonationCenter_Region">
+            <End Role="Region" EntitySet="Region" />
+            <End Role="DonationCenter" EntitySet="DonationCenter" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DonationLog_DonationCenter" Association="Self.FK_DonationLog_DonationCenter">
+            <End Role="DonationCenter" EntitySet="DonationCenter" />
+            <End Role="DonationLog" EntitySet="DonationLog" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PhoneNumber_DonationCenter" Association="Self.FK_PhoneNumber_DonationCenter">
+            <End Role="DonationCenter" EntitySet="DonationCenter" />
+            <End Role="PhoneNumber" EntitySet="PhoneNumber" />
+          </AssociationSet>
+          <EntitySet Name="C__RefactorLog" EntityType="BloodDonationModel.C__RefactorLog" />
+          <EntitySet Name="ABOBloodGroup" EntityType="BloodDonationModel.ABOBloodGroup" />
+          <EntitySet Name="Donor" EntityType="BloodDonationModel.Donor" />
+          <EntitySet Name="DonorSex" EntityType="BloodDonationModel.DonorSex" />
+          <AssociationSet Name="FK_Donor_ABOBloodGroup" Association="BloodDonationModel.FK_Donor_ABOBloodGroup">
+            <End Role="ABOBloodGroup" EntitySet="ABOBloodGroup" />
+            <End Role="Donor" EntitySet="Donor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DonationLog_Donor" Association="BloodDonationModel.FK_DonationLog_Donor">
+            <End Role="Donor" EntitySet="Donor" />
+            <End Role="DonationLog" EntitySet="DonationLog" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Donor_DonorSex" Association="BloodDonationModel.FK_Donor_DonorSex">
+            <End Role="DonorSex" EntitySet="DonorSex" />
+            <End Role="Donor" EntitySet="Donor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Donor_RhBloodGroup" Association="BloodDonationModel.FK_Donor_RhBloodGroup">
+            <End Role="RhBloodGroup" EntitySet="RhBloodGroup" />
+            <End Role="Donor" EntitySet="Donor" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="C__RefactorLog">
+          <Key>
+            <PropertyRef Name="OperationKey" />
+          </Key>
+          <Property Name="OperationKey" Type="Guid" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ABOBloodGroup">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Donor" Relationship="BloodDonationModel.FK_Donor_ABOBloodGroup" FromRole="ABOBloodGroup" ToRole="Donor" />
+        </EntityType>
+        <EntityType Name="Donor">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BirthDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DonorSexId" Type="Int32" Nullable="false" />
+          <Property Name="SocialInsuranceNumber" Type="String" MaxLength="11" FixedLength="true" Unicode="false" />
+          <Property Name="ABOBloodGroupId" Type="Int32" />
+          <Property Name="RhBloodGroupId" Type="Int32" />
+          <NavigationProperty Name="ABOBloodGroup" Relationship="BloodDonationModel.FK_Donor_ABOBloodGroup" FromRole="Donor" ToRole="ABOBloodGroup" />
+          <NavigationProperty Name="DonationLog" Relationship="BloodDonationModel.FK_DonationLog_Donor" FromRole="Donor" ToRole="DonationLog" />
+          <NavigationProperty Name="DonorSex" Relationship="BloodDonationModel.FK_Donor_DonorSex" FromRole="Donor" ToRole="DonorSex" />
+          <NavigationProperty Name="RhBloodGroup" Relationship="BloodDonationModel.FK_Donor_RhBloodGroup" FromRole="Donor" ToRole="RhBloodGroup" />
+        </EntityType>
+        <EntityType Name="DonorSex">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Donor" Relationship="BloodDonationModel.FK_Donor_DonorSex" FromRole="DonorSex" ToRole="Donor" />
+        </EntityType>
+        <Association Name="FK_Donor_ABOBloodGroup">
+          <End Type="BloodDonationModel.ABOBloodGroup" Role="ABOBloodGroup" Multiplicity="0..1" />
+          <End Type="BloodDonationModel.Donor" Role="Donor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ABOBloodGroup">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Donor">
+              <PropertyRef Name="ABOBloodGroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DonationLog_Donor">
+          <End Type="BloodDonationModel.Donor" Role="Donor" Multiplicity="1" />
+          <End Type="BloodDonationModel.DonationLog" Role="DonationLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Donor">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DonationLog">
+              <PropertyRef Name="DonorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Donor_DonorSex">
+          <End Type="BloodDonationModel.DonorSex" Role="DonorSex" Multiplicity="1" />
+          <End Type="BloodDonationModel.Donor" Role="Donor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DonorSex">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Donor">
+              <PropertyRef Name="DonorSexId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Donor_RhBloodGroup">
+          <End Type="BloodDonationModel.RhBloodGroup" Role="RhBloodGroup" Multiplicity="0..1" />
+          <End Type="BloodDonationModel.Donor" Role="Donor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RhBloodGroup">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Donor">
+              <PropertyRef Name="RhBloodGroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BloodDonationModelStoreContainer" CdmEntityContainer="BloodDonationEntities">
+          <EntitySetMapping Name="Address">
+            <EntityTypeMapping TypeName="BloodDonationModel.Address">
+              <MappingFragment StoreEntitySet="Address">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="HouseNumber" ColumnName="HouseNumber" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DonationCenter">
+            <EntityTypeMapping TypeName="BloodDonationModel.DonationCenter">
+              <MappingFragment StoreEntitySet="DonationCenter">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="DonationCenterTypeId" ColumnName="DonationCenterTypeId" />
+                <ScalarProperty Name="RegionId" ColumnName="RegionId" />
+                <ScalarProperty Name="AddressId" ColumnName="AddressId" />
+                <ScalarProperty Name="OpeningHoursId" ColumnName="OpeningHoursId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DonationCenterType">
+            <EntityTypeMapping TypeName="BloodDonationModel.DonationCenterType">
+              <MappingFragment StoreEntitySet="DonationCenterType">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DonationLog">
+            <EntityTypeMapping TypeName="BloodDonationModel.DonationLog">
+              <MappingFragment StoreEntitySet="DonationLog">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="DonorId" ColumnName="DonorId" />
+                <ScalarProperty Name="DonationCenterId" ColumnName="DonationCenterId" />
+                <ScalarProperty Name="DonationDate" ColumnName="DonationDate" />
+                <ScalarProperty Name="IsSuccessful" ColumnName="IsSuccessful" />
+                <ScalarProperty Name="NextDate" ColumnName="NextDate" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OpeningHours">
+            <EntityTypeMapping TypeName="BloodDonationModel.OpeningHours">
+              <MappingFragment StoreEntitySet="OpeningHours">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Monday" ColumnName="Monday" />
+                <ScalarProperty Name="Tuesday" ColumnName="Tuesday" />
+                <ScalarProperty Name="Wednesday" ColumnName="Wednesday" />
+                <ScalarProperty Name="Thursday" ColumnName="Thursday" />
+                <ScalarProperty Name="Friday" ColumnName="Friday" />
+                <ScalarProperty Name="Saturday" ColumnName="Saturday" />
+                <ScalarProperty Name="Sunday" ColumnName="Sunday" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PhoneNumber">
+            <EntityTypeMapping TypeName="BloodDonationModel.PhoneNumber">
+              <MappingFragment StoreEntitySet="PhoneNumber">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="DonationCenterId" ColumnName="DonationCenterId" />
+                <ScalarProperty Name="PhoneNumber1" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Region">
+            <EntityTypeMapping TypeName="BloodDonationModel.Region">
+              <MappingFragment StoreEntitySet="Region">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RhBloodGroup">
+            <EntityTypeMapping TypeName="BloodDonationModel.RhBloodGroup">
+              <MappingFragment StoreEntitySet="RhBloodGroup">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C__RefactorLog">
+            <EntityTypeMapping TypeName="BloodDonationModel.C__RefactorLog">
+              <MappingFragment StoreEntitySet="__RefactorLog">
+                <ScalarProperty Name="OperationKey" ColumnName="OperationKey" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ABOBloodGroup">
+            <EntityTypeMapping TypeName="BloodDonationModel.ABOBloodGroup">
+              <MappingFragment StoreEntitySet="ABOBloodGroup">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Donor">
+            <EntityTypeMapping TypeName="BloodDonationModel.Donor">
+              <MappingFragment StoreEntitySet="Donor">
+                <ScalarProperty Name="RhBloodGroupId" ColumnName="RhBloodGroupId" />
+                <ScalarProperty Name="ABOBloodGroupId" ColumnName="ABOBloodGroupId" />
+                <ScalarProperty Name="SocialInsuranceNumber" ColumnName="SocialInsuranceNumber" />
+                <ScalarProperty Name="DonorSexId" ColumnName="DonorSexId" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DonorSex">
+            <EntityTypeMapping TypeName="BloodDonationModel.DonorSex">
+              <MappingFragment StoreEntitySet="DonorSex">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

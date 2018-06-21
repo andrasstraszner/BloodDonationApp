@@ -1,0 +1,40 @@
+﻿@model BloodDonationUI.Models.DonationShowTableViewModel
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Header.DonationDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Header.DonationCenter)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Header.IsSuccessful)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Header.NextDate)
+        </th>
+    </tr>
+    @foreach (var item in Model.Rows)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DonationDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DonationCenter)
+            </td>
+            <td>
+                @HttpUtility.HtmlDecode(item.IsSuccessful)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NextDate)
+            </td>
+            <td>
+                @Html.ActionLink("Részletek", "Details", new { id = item.Id }, new { data_modal = "", @class="btn btn-primary" })
+                @Html.ActionLink("Szerkesztés", "Edit", new { id = item.Id }, new { data_modal = "", @class="btn btn-success"})
+                @Html.ActionLink("Törlés", "Delete", new { id = item.Id }, new { data_modal = "", @class="btn btn-danger"})
+            </td>
+        </tr>
+    }
+</table>

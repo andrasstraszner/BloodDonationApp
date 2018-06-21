@@ -1,0 +1,78 @@
+﻿@model BloodDonationUI.Models.PersonalShowViewModel
+@{
+    ViewBag.Title = "Személyes adatok";
+}
+
+<h3>@ViewBag.Title</h3>
+<hr />
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BirthDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BirthDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DonorSex)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DonorSex)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SocialInsuranceNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SocialInsuranceNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ABOBloodGroup)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ABOBloodGroup)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RhBloodGroup)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RhBloodGroup)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Szerkesztés", "Edit", null, new { @class = "btn btn-success" })
+</p>
